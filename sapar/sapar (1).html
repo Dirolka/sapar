@@ -886,18 +886,8 @@ function SaparApp() {
   return (
     <div className="flex items-center justify-center min-h-screen" style={{ background: "linear-gradient(135deg, #e2e8f0 0%, #f1f5f9 100%)" }}>
       <div className="relative overflow-hidden flex flex-col" style={{ width: 375, height: 812, borderRadius: 40, boxShadow: "0 20px 60px rgba(0,0,0,0.15), 0 0 0 1px rgba(0,0,0,0.05)", background: "#fff" }}>
-        <div className="flex items-center justify-between px-7 pt-3 pb-1 absolute top-0 left-0 right-0 z-50">
-          <span className="font-semibold" style={{ fontSize: 11, color: showPOI ? "#fff" : (activeTab === 2 ? "#1a1a1a" : "#fff") }}>9:41</span>
-          <div className="flex items-center gap-1">
-            <div className="flex gap-1">
-              {[1,2,3,4].map(i => (
-                <div key={i} className="rounded-full" style={{ width: 2, height: 4 + i * 2, background: showPOI ? "rgba(255,255,255,0.7)" : (activeTab === 2 && !showPOI ? "#666" : "rgba(255,255,255,0.7)") }} />
-              ))}
-            </div>
-          </div>
-        </div>
 
-        <div className="flex-1 overflow-hidden" style={{ paddingTop: 28 }}>
+        <div className="flex-1 overflow-hidden" style={{ paddingTop: 0 }}>
           {renderScreen()}
         </div>
 
