@@ -884,42 +884,38 @@ function SaparApp() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen" style={{ background: "linear-gradient(135deg, #e2e8f0 0%, #f1f5f9 100%)" }}>
       <div className="relative overflow-hidden flex flex-col" style={{ width: 375, height: 812, borderRadius: 40, boxShadow: "0 20px 60px rgba(0,0,0,0.15), 0 0 0 1px rgba(0,0,0,0.05)", background: "#fff" }}>
 
-        <div className="flex-1 overflow-hidden" style={{ paddingTop: 0 }}>
-          {renderScreen()}
-        </div>
+          <div className="flex-1 overflow-hidden" style={{ paddingTop: 0 }}>
+              {renderScreen()}
+          </div>
 
-        {!showPOI && (
-          <nav className="flex items-center justify-around px-4" style={{ paddingBottom: 28, paddingTop: 8, background: "#fff", borderTop: "1px solid #f1f5f9" }} aria-label="Основная навигация">
-            {tabs.map((tab, i) => {
-              const Icon = tab.icon;
-              const active = activeTab === i;
-              const badge = i === 2 && likedIds.size > 0;
-              return (
-                <button key={i} onClick={() => setActiveTab(i)} className="flex flex-col items-center gap-1 py-1 px-3 relative" aria-label={tab.label} aria-current={active ? "page" : undefined}>
-                  <div className="rounded-xl flex items-center justify-center transition-all relative" style={{ width: 32, height: 32, background: active ? `${TEAL}12` : "transparent", transform: active ? "scale(1.1)" : "scale(1)" }}>
-                    <Icon size={20} color={active ? TEAL : "#94a3b8"} fill={active && i === 2 ? TEAL : "none"} strokeWidth={active ? 2.5 : 1.8} />
-                    {badge && (
-                      <div className="absolute -top-0.5 -right-0.5 rounded-full flex items-center justify-center" style={{ width: 14, height: 14, background: "#f87171", fontSize: 8, color: "#fff", fontWeight: 700 }}>
-                        {likedIds.size}
-                      </div>
-                    )}
-                  </div>
-                  <span className="font-medium" style={{ fontSize: 10, color: active ? TEAL : "#94a3b8" }}>{tab.label}</span>
-                </button>
-              );
-            })}
-          </nav>
-        )}
+          {!showPOI && (
+              <nav className="flex items-center justify-around px-4" style={{ paddingBottom: 28, paddingTop: 8, background: "#fff", borderTop: "1px solid #f1f5f9" }} aria-label="Основная навигация">
+                  {tabs.map((tab, i) => {
+                      const Icon = tab.icon;
+                      const active = activeTab === i;
+                      const badge = i === 2 && likedIds.size > 0;
+                      return (
+                          <button key={i} onClick={() => setActiveTab(i)} className="flex flex-col items-center gap-1 py-1 px-3 relative" aria-label={tab.label} aria-current={active ? "page" : undefined}>
+                              <div className="rounded-xl flex items-center justify-center transition-all relative" style={{ width: 32, height: 32, background: active ? `${TEAL}12` : "transparent", transform: active ? "scale(1.1)" : "scale(1)" }}>
+                                  <Icon size={20} color={active ? TEAL : "#94a3b8"} fill={active && i === 2 ? TEAL : "none"} strokeWidth={active ? 2.5 : 1.8} />
+                                  {badge && (
+                                      <div className="absolute -top-0.5 -right-0.5 rounded-full flex items-center justify-center" style={{ width: 14, height: 14, background: "#f87171", fontSize: 8, color: "#fff", fontWeight: 700 }}>
+                                          {likedIds.size}
+                                      </div>
+                                  )}
+                              </div>
+                              <span className="font-medium" style={{ fontSize: 10, color: active ? TEAL : "#94a3b8" }}>{tab.label}</span>
+                          </button>
+                      );
+                  })}
+              </nav>
+          )}
 
-        <div className="absolute rounded-full" style={{ bottom: 8, left: "50%", transform: "translateX(-50%)", width: 128, height: 4, background: "rgba(0,0,0,0.15)" }} />
+          <div className="absolute rounded-full" style={{ bottom: 8, left: "50%", transform: "translateX(-50%)", width: 128, height: 4, background: "rgba(0,0,0,0.15)" }} />
       </div>
-    </div>
-  );
-}
-
+  )}
 ReactDOM.createRoot(document.getElementById("root")).render(<SaparApp />);
 </script>
 </body>
