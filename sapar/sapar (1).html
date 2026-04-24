@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sapar — Путешествия по Казахстану</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20100%20100%27%3E%3Ctext%20y%3D%27.9em%27%20font-size%3D%2790%27%3E%F0%9F%8F%94%EF%B8%8F%3C%2Ftext%3E%3C%2Fsvg%3E">
+
+<!-- ИСПРАВЛЕНИЕ: Статический скомпилированный файл Tailwind CSS вместо скрипта, который блокируется локально -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet" />
+
+<script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script>
+(function(){
+  function makeIcon(paths){
+    return function Icon(props){
+      var size=props.size||24,color=props.color||"currentColor",fill=props.fill||"none",sw=props.strokeWidth||2,cn=props.className||"",st=props.style||{};
+      return React.createElement("svg",Object.assign({xmlns:"http://www.w3.org/2000/svg",width:size,height:size,viewBox:"0 0 24 24",fill:fill,stroke:color,strokeWidth:sw,strokeLinecap:"round",strokeLinejoin:"round",className:cn,style:st}),
+        paths.map(function(p,i){return React.createElement(p[0],Object.assign({key:i},p[1]))})
+      );
+    };
+  }
+  window.lucideReact={
+    Search:makeIcon([["circle",{cx:"11",cy:"11",r:"8"}],["path",{d:"m21 21-4.3-4.3"}]]),
+    MapPin:makeIcon([["path",{d:"M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"}],["circle",{cx:"12",cy:"10",r:"3"}]]),
+    Star:makeIcon([["polygon",{points:"12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"}]]),
+    Clock:makeIcon([["circle",{cx:"12",cy:"12",r:"10"}],["polyline",{points:"12 6 12 12 16 14"}]]),
+    Shield:makeIcon([["path",{d:"M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"}]]),
+    ChevronRight:makeIcon([["path",{d:"m9 18 6-6-6-6"}]]),
+    ChevronUp:makeIcon([["path",{d:"m18 15-6-6-6 6"}]]),
+    ChevronDown:makeIcon([["path",{d:"m6 9 6 6 6-6"}]]),
+    Compass:makeIcon([["circle",{cx:"12",cy:"12",r:"10"}],["polygon",{points:"16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"}]]),
+    Map:makeIcon([["path",{d:"M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z"}],["path",{d:"M15 5.764v15"}],["path",{d:"M9 3.236v15"}]]),
+    Heart:makeIcon([["path",{d:"M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"}]]),
+    User:makeIcon([["path",{d:"M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"}],["circle",{cx:"12",cy:"7",r:"4"}]]),
+    Sparkles:makeIcon([["path",{d:"m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"}],["path",{d:"M5 3v4"}],["path",{d:"M19 17v4"}],["path",{d:"M3 5h4"}],["path",{d:"M17 19h4"}]]),
+    Globe:makeIcon([["circle",{cx:"12",cy:"12",r:"10"}],["path",{d:"M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"}],["path",{d:"M2 12h20"}]]),
+    Lock:makeIcon([["rect",{width:"18",height:"11",x:"3",y:"11",rx:"2",ry:"2"}],["path",{d:"M7 11V7a5 5 0 0 1 10 0v4"}]]),
+    CreditCard:makeIcon([["rect",{width:"20",height:"14",x:"2",y:"5",rx:"2"}],["line",{x1:"2",y1:"10",x2:"22",y2:"10"}]]),
+    Check:makeIcon([["path",{d:"M20 6 9 17l-5-5"}]]),
+    Sun:makeIcon([["circle",{cx:"12",cy:"12",r:"4"}],["path",{d:"M12 2v2"}],["path",{d:"M12 20v2"}],["path",{d:"m4.93 4.93 1.41 1.41"}],["path",{d:"m17.66 17.66 1.41 1.41"}],["path",{d:"M2 12h2"}],["path",{d:"M20 12h2"}],["path",{d:"m6.34 17.66-1.41 1.41"}],["path",{d:"m19.07 4.93-1.41 1.41"}]]),
+    Mountain:makeIcon([["path",{d:"m8 3 4 8 5-5 5 15H2L8 3z"}]]),
+    Users:makeIcon([["path",{d:"M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"}],["circle",{cx:"9",cy:"7",r:"4"}],["path",{d:"M22 21v-2a4 4 0 0 0-3-3.87"}],["path",{d:"M16 3.13a4 4 0 0 1 0 7.75"}]]),
+    Wallet:makeIcon([["path",{d:"M21 12V7H5a2 2 0 0 1 0-4h14v4"}],["path",{d:"M3 5v14a2 2 0 0 0 2 2h16v-5"}],["path",{d:"M18 12a2 2 0 0 0 0 4h4v-4Z"}]]),
+    Accessibility:makeIcon([["circle",{cx:"16",cy:"4",r:"1"}],["path",{d:"m18 19 1-7-6 1"}],["path",{d:"m5 8 3-3 5.5 3-2.36 3.5"}],["path",{d:"m4.24 14.5 2.5 2.5"}],["path",{d:"m14.4 6 1.6 1.5"}]]),
+    Filter:makeIcon([["polygon",{points:"22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"}]]),
+    ArrowLeft:makeIcon([["path",{d:"m12 19-7-7 7-7"}],["path",{d:"M19 12H5"}]]),
+    Plus:makeIcon([["path",{d:"M5 12h14"}],["path",{d:"M12 5v14"}]]),
+    BadgeCheck:makeIcon([["path",{d:"M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"}],["path",{d:"m9 12 2 2 4-4"}]]),
+    Baby:makeIcon([["path",{d:"M9 12h.01"}],["path",{d:"M15 12h.01"}],["path",{d:"M10 16c.5.3 1.2.5 2 .5s1.5-.2 2-.5"}],["path",{d:"M19 6.3a9 9 0 0 1 1.8 3.9 2 2 0 0 1 0 3.6 9 9 0 0 1-17.6 0 2 2 0 0 1 0-3.6A9 9 0 0 1 12 3c2 0 3.5 1.1 3.5 2.5s-.9 2.5-2 2.5c-.8 0-1.5-.4-1.5-1"}]]),
+    Phone:makeIcon([["path",{d:"M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"}]]),
+    Wifi:makeIcon([["path",{d:"M12 20h.01"}],["path",{d:"M2 8.82a15 15 0 0 1 20 0"}],["path",{d:"M5 12.859a10 10 0 0 1 14 0"}],["path",{d:"M8.5 16.429a5 5 0 0 1 7 0"}]]),
+    WifiOff:makeIcon([["path",{d:"M12 20h.01"}],["path",{d:"M8.5 16.429a5 5 0 0 1 7 0"}],["path",{d:"M5 12.859a10 10 0 0 1 5.17-2.69"}],["path",{d:"M13.41 10.25a10 10 0 0 1 5.59 2.61"}],["path",{d:"M2 8.82a15 15 0 0 1 4.17-2.65"}],["path",{d:"M10.66 5c1.01-.16 2.04-.24 3.09-.23 3.41.04 6.52 1.33 8.97 3.08"}],["line",{x1:"2",y1:"2",x2:"22",y2:"22"}]]),
+    GripVertical:makeIcon([["circle",{cx:"9",cy:"12",r:"1"}],["circle",{cx:"9",cy:"5",r:"1"}],["circle",{cx:"9",cy:"19",r:"1"}],["circle",{cx:"15",cy:"12",r:"1"}],["circle",{cx:"15",cy:"5",r:"1"}],["circle",{cx:"15",cy:"19",r:"1"}]]),
+    Play:makeIcon([["polygon",{points:"6 3 20 12 6 21 6 3"}]]),
+    X:makeIcon([["path",{d:"M18 6 6 18"}],["path",{d:"m6 6 12 12"}]]),
+    Languages:makeIcon([["path",{d:"m5 8 6 6"}],["path",{d:"m4 14 6-6 2-3"}],["path",{d:"M2 5h12"}],["path",{d:"M7 2h1"}],["path",{d:"m22 22-5-10-5 10"}],["path",{d:"M14 18h6"}]]),
+    Eye:makeIcon([["path",{d:"M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"}],["circle",{cx:"12",cy:"12",r:"3"}]]),
+    Bell:makeIcon([["path",{d:"M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"}],["path",{d:"M10.3 21a1.94 1.94 0 0 0 3.4 0"}]]),
+    Moon:makeIcon([["path",{d:"M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"}]]),
+    Trash2:makeIcon([["path",{d:"M3 6h18"}],["path",{d:"M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"}],["path",{d:"M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"}],["line",{x1:"10",y1:"11",x2:"10",y2:"17"}],["line",{x1:"14",y1:"11",x2:"14",y2:"17"}]])
+  };
+})();
+</script>
+<style>
+  * { -webkit-tap-highlight-color: transparent; box-sizing: border-box; }
+  ::-webkit-scrollbar { display: none; }
+  body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: linear-gradient(135deg, #e2e8f0 0%, #f1f5f9 100%); min-height: 100vh; }
+  @keyframes fadeSlideIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+  .press-effect { transition: transform 0.15s ease; }
+  .press-effect:active { transform: scale(0.97) !important; }
+  .press-effect-soft:active { transform: scale(0.98) !important; }
+
+  /* Dark mode styles */
+  .dark-mode { background: #0f172a !important; }
+  .dark-mode .dm-bg { background: #1e293b !important; }
+  .dark-mode .dm-card { background: #334155 !important; }
+  .dark-mode .dm-text { color: #e2e8f0 !important; }
+  .dark-mode .dm-subtext { color: #94a3b8 !important; }
+  .dark-mode .dm-border { border-color: #334155 !important; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const { useState } = React;
+const {
+  Search, MapPin, Star, Clock, Shield, ChevronRight, ChevronUp, ChevronDown,
+  Compass, Map, Heart, User, Sparkles, Globe, Lock, CreditCard, Check,
+  Sun, Mountain, Users, Wallet, Accessibility, Filter, ArrowLeft, Plus,
+  BadgeCheck, Baby, Phone, Wifi, WifiOff, GripVertical, Play, X, Languages, Eye, Bell, Moon, Trash2
+} = lucideReact;
+
+const TEAL = "#00A5B8";
+const TEAL_DARK = "#008A9A";
+const GOLD = "#D4A853";
+const SAND = "#F5E6C8";
+const WARM = "#FFF8F0";
+
+const OrnamentPattern = ({ opacity = 0.04, color = TEAL }) => (
+  <svg className="absolute inset-0 w-full h-full pointer-events-none" style={{ opacity }}>
+    <defs>
+      <pattern id="kz-ornament" x="0" y="0" width="60" height="60" patternUnits="userSpaceOnUse">
+        <path d="M30 5 L35 15 L30 10 L25 15 Z" fill={color} />
+        <path d="M30 55 L35 45 L30 50 L25 45 Z" fill={color} />
+        <path d="M5 30 L15 25 L10 30 L15 35 Z" fill={color} />
+        <path d="M55 30 L45 25 L50 30 L45 35 Z" fill={color} />
+        <circle cx="30" cy="30" r="3" fill="none" stroke={color} strokeWidth="0.8" />
+        <path d="M20 20 Q30 15 40 20 Q35 30 40 40 Q30 35 20 40 Q25 30 20 20Z" fill="none" stroke={color} strokeWidth="0.6" />
+      </pattern>
+    </defs>
+    <rect width="100%" height="100%" fill="url(#kz-ornament)" />
+  </svg>
+);
+
+const ShanyrakIcon = ({ size = 24, color = GOLD }) => (
+  <svg width={size} height={size} viewBox="0 0 40 40" fill="none">
+    <circle cx="20" cy="20" r="14" stroke={color} strokeWidth="1.5" fill="none" />
+    <circle cx="20" cy="20" r="6" stroke={color} strokeWidth="1.2" fill="none" />
+    <line x1="20" y1="6" x2="20" y2="14" stroke={color} strokeWidth="1" />
+    <line x1="20" y1="26" x2="20" y2="34" stroke={color} strokeWidth="1" />
+    <line x1="6" y1="20" x2="14" y2="20" stroke={color} strokeWidth="1" />
+    <line x1="26" y1="20" x2="34" y2="20" stroke={color} strokeWidth="1" />
+    <line x1="10" y1="10" x2="15.8" y2="15.8" stroke={color} strokeWidth="0.8" />
+    <line x1="24.2" y1="24.2" x2="30" y2="30" stroke={color} strokeWidth="0.8" />
+    <line x1="30" y1="10" x2="24.2" y2="15.8" stroke={color} strokeWidth="0.8" />
+    <line x1="15.8" y1="24.2" x2="10" y2="30" stroke={color} strokeWidth="0.8" />
+  </svg>
+);
+
+const allLocations = [
+  { id: 1, name: "Алматы", subtitle: "Город у гор", rating: 4.8, reviews: 2340, img: "almaty", tags: ["Природа", "Еда", "Горы"], color: "#3B82F6" },
+  { id: 2, name: "Астана", subtitle: "Столица будущего", rating: 4.7, reviews: 1890, img: "astana", tags: ["Архитектура", "Семья"], color: "#8B5CF6" },
+  { id: 3, name: "Туркестан", subtitle: "Духовная столица", rating: 4.9, reviews: 1450, img: "turkestan", tags: ["История", "Культура"], color: "#D97706" },
+  { id: 4, name: "Бурабай", subtitle: "Казахская Швейцария", rating: 4.6, reviews: 980, img: "burabay", tags: ["Природа", "Озера"], color: "#059669" },
+];
+
+const nearbyPlaces = [
+  { id: 101, name: "Медеу", subtitle: "Каток высокогорный", dist: "2.3 км", rating: 4.7, reviews: 500, tags: ["Природа", "Спорт"], img: "almaty", color: "#3b82f6" },
+  { id: 102, name: "Кок-Тобе", subtitle: "Смотровая площадка", dist: "4.1 км", rating: 4.5, reviews: 430, tags: ["Природа", "Семья"], img: "almaty", color: "#10b981" },
+];
+
+const defaultItinerary = [
+  { id: 1, time: "08:00", title: "Завтрак в Kaganat", subtitle: "Национальная кухня", duration: "1ч", icon: "food" },
+  { id: 2, time: "10:00", title: "Чарынский каньон", subtitle: "Гранд-Каньон Казахстана", duration: "3ч", icon: "nature" },
+  { id: 3, time: "13:00", title: "Обед у реки Чарын", subtitle: "Пикник с видом", duration: "1ч", icon: "food" },
+  { id: 4, time: "15:00", title: "Кольсайские озёра", subtitle: "Жемчужины Тянь-Шаня", duration: "3ч", icon: "nature" },
+  { id: 5, time: "19:00", title: "Юрточный лагерь", subtitle: "Ночёвка под звёздами", duration: "—", icon: "stay" },
+];
+
+const filterDefs = [
+  { label: "Семья", icon: Users, tag: "Семья" },
+  { label: "Природа", icon: Mountain, tag: "Природа" },
+  { label: "Бюджетно", icon: Wallet, tag: null },
+  { label: "Доступная среда", icon: Accessibility, tag: null },
+  { label: "Еда", icon: Sun, tag: "Еда" },
+];
+
+const ScenePlaceholder = ({ type, className = "", style = {} }) => {
+  const scenes = {
+    almaty: (
+      <div className={`relative overflow-hidden ${className}`} style={{ background: "linear-gradient(135deg, #1a365d 0%, #2563eb 40%, #7dd3fc 70%, #f0f9ff 100%)", ...style }}>
+        <div className="absolute bottom-0 left-0 right-0">
+          <svg viewBox="0 0 200 80" className="w-full">
+            <path d="M0 80 L30 25 L50 45 L80 10 L110 35 L130 20 L160 40 L200 15 L200 80Z" fill="#1e3a5f" opacity="0.5" />
+            <path d="M0 80 L20 40 L50 55 L90 20 L120 45 L150 30 L200 50 L200 80Z" fill="#2d5a27" opacity="0.7" />
+            <path d="M0 80 L40 60 L80 50 L120 55 L160 48 L200 60 L200 80Z" fill="#38722e" />
+          </svg>
+        </div>
+        <div className="absolute top-3 right-4 w-8 h-8 rounded-full" style={{ background: "radial-gradient(circle, #fde68a, #f59e0b)" }} />
+      </div>
+    ),
+    astana: (
+      <div className={`relative overflow-hidden ${className}`} style={{ background: "linear-gradient(180deg, #0f172a 0%, #1e3a5f 50%, #38bdf8 100%)", ...style }}>
+        <div className="absolute bottom-0 left-0 right-0 flex items-end justify-center gap-1 pb-0">
+          <div className="w-3 rounded-t" style={{ height: 40, background: "linear-gradient(180deg, #94a3b8, #cbd5e1)" }} />
+          <div className="w-4 rounded-t" style={{ height: 55, background: "linear-gradient(180deg, #60a5fa, #93c5fd)" }} />
+          <div className="w-2 rounded-t" style={{ height: 65, background: `linear-gradient(180deg, ${GOLD}, #fbbf24)` }} />
+          <div className="w-5 rounded-t" style={{ height: 50, background: "linear-gradient(180deg, #a5b4fc, #c7d2fe)" }} />
+          <div className="w-3 rounded-t" style={{ height: 35, background: "linear-gradient(180deg, #94a3b8, #e2e8f0)" }} />
+          <div className="w-4 rounded-t" style={{ height: 45, background: "linear-gradient(180deg, #67e8f9, #a5f3fc)" }} />
+        </div>
+        <div className="absolute top-3 left-4">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fef08a" strokeWidth="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </div>
+      </div>
+    ),
+    turkestan: (
+      <div className={`relative overflow-hidden ${className}`} style={{ background: "linear-gradient(180deg, #fef3c7 0%, #fcd34d 40%, #d97706 100%)", ...style }}>
+        <div className="absolute bottom-0 left-0 right-0">
+          <svg viewBox="0 0 200 60" className="w-full">
+            <ellipse cx="100" cy="70" rx="120" ry="40" fill="#92400e" opacity="0.3" />
+          </svg>
+        </div>
+        <div className="absolute bottom-2 left-1/2" style={{ transform: "translateX(-50%)" }}>
+          <div className="flex items-end">
+            <div className="rounded-t-full border-2" style={{ width: 48, height: 64, background: "linear-gradient(180deg, #78350f, #92400e)", borderColor: "#92400e" }}>
+              <div className="mx-auto mt-1 rounded-t" style={{ width: 8, height: 24, background: "#92400e" }} />
+            </div>
+          </div>
+        </div>
+      </div>
+    ),
+    burabay: (
+      <div className={`relative overflow-hidden ${className}`} style={{ background: "linear-gradient(180deg, #bfdbfe 0%, #60a5fa 30%, #2563eb 100%)", ...style }}>
+        <div className="absolute bottom-0 left-0 right-0">
+          <svg viewBox="0 0 200 60" className="w-full">
+            <path d="M0 60 L30 25 L60 40 L90 15 L120 35 L200 20 L200 60Z" fill="#166534" opacity="0.8" />
+            <path d="M0 60 L0 45 Q50 35 100 40 Q150 45 200 38 L200 60Z" fill="#1d4ed8" opacity="0.5" />
+          </svg>
+        </div>
+      </div>
+    ),
+  };
+  return scenes[type] || scenes.almaty;
+};
+
+/* =================== DISCOVERY SCREEN =================== */
+const DiscoveryScreen = ({ onLocationTap, onAIRoute, likedIds, searchQuery, onSearchChange, activeFilter, onFilterChange }) => {
+  const [searchFocused, setSearchFocused] = useState(false);
+
+  const filteredLocations = allLocations.filter(loc => {
+    const matchesSearch = !searchQuery || loc.name.toLowerCase().includes(searchQuery.toLowerCase()) || loc.subtitle.toLowerCase().includes(searchQuery.toLowerCase());
+    const filterTag = activeFilter !== null ? filterDefs[activeFilter]?.tag : null;
+    const matchesFilter = !filterTag || loc.tags.includes(filterTag);
+    return matchesSearch && matchesFilter;
+  });
+
+  const filteredNearby = nearbyPlaces.filter(p => {
+    const matchesSearch = !searchQuery || p.name.toLowerCase().includes(searchQuery.toLowerCase());
+    const filterTag = activeFilter !== null ? filterDefs[activeFilter]?.tag : null;
+    const matchesFilter = !filterTag || p.tags.includes(filterTag);
+    return matchesSearch && matchesFilter;
+  });
+
+  return (
+    <div className="flex flex-col h-full bg-white">
+      <div className="relative px-5 pt-5 pb-3" style={{ background: `linear-gradient(135deg, ${TEAL} 0%, ${TEAL_DARK} 100%)` }}>
+        <OrnamentPattern opacity={0.08} color="#fff" />
+        <div className="relative z-10">
+          <div className="flex items-center justify-between mb-4">
+            <div>
+              <p className="text-xs tracking-wider uppercase" style={{ color: "#80e0eb", letterSpacing: "0.15em" }}>Сәлем!</p>
+              <h1 className="text-white text-xl font-bold mt-1" style={{ fontFamily: "Georgia, serif" }}>Куда отправимся?</h1>
+            </div>
+            <ShanyrakIcon size={32} color="rgba(255,255,255,0.9)" />
+          </div>
+          <div
+            className="flex items-center gap-2 rounded-2xl px-4 py-3 transition-all duration-300"
+            style={{
+              background: searchFocused ? "rgba(255,255,255,1)" : "rgba(255,255,255,0.18)",
+              backdropFilter: "blur(10px)",
+              border: searchFocused ? `2px solid ${GOLD}` : "2px solid rgba(255,255,255,0.15)"
+            }}
+          >
+            <Search size={18} color={searchFocused ? "#0d9488" : "rgba(255,255,255,0.7)"} />
+            <input
+              className="bg-transparent outline-none text-sm flex-1"
+              placeholder="Поиск мест и достопримечательностей..."
+              style={{ color: searchFocused ? "#1a1a1a" : "rgba(255,255,255,0.85)" }}
+              value={searchQuery}
+              onChange={(e) => onSearchChange(e.target.value)}
+              onFocus={() => setSearchFocused(true)}
+              onBlur={() => setSearchFocused(false)}
+              aria-label="Поиск мест"
+            />
+            {searchQuery && (
+              <button onClick={() => onSearchChange("")} aria-label="Очистить поиск">
+                <X size={16} color={searchFocused ? "#9ca3af" : "rgba(255,255,255,0.6)"} />
+              </button>
+            )}
+          </div>
+        </div>
+      </div>
+
+      <div className="flex-1 overflow-y-auto">
+        <div className="px-5 pt-4 pb-2">
+          <div className="flex gap-2 overflow-x-auto pb-1" style={{ scrollbarWidth: "none" }}>
+            {filterDefs.map((f, i) => {
+              const Icon = f.icon;
+              const active = activeFilter === i;
+              return (
+                <button
+                  key={i}
+                  onClick={() => onFilterChange(active ? null : i)}
+                  className="flex items-center gap-2 px-3 py-2 rounded-full text-xs font-medium whitespace-nowrap transition-all duration-200"
+                  style={{ flexShrink: 0, background: active ? TEAL : "#f1f5f9", color: active ? "#fff" : "#475569", boxShadow: active ? `0 2px 8px ${TEAL}40` : "none" }}
+                  aria-label={`Фильтр: ${f.label}`}
+                  aria-pressed={active}
+                >
+                  <Icon size={13} />
+                  {f.label}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        <div className="px-5 py-3">
+          <button
+            onClick={onAIRoute}
+            className="press-effect w-full relative overflow-hidden rounded-2xl p-4 flex items-center gap-3"
+            style={{ background: `linear-gradient(135deg, ${TEAL} 0%, #0891b2 50%, ${TEAL_DARK} 100%)`, boxShadow: `0 4px 20px ${TEAL}35` }}
+            aria-label="Сгенерировать AI-маршрут"
+          >
+            <OrnamentPattern opacity={0.06} color="#fff" />
+            <div className="relative z-10 rounded-xl flex items-center justify-center" style={{ width: 44, height: 44, background: "rgba(255,255,255,0.2)" }}>
+              <Sparkles size={22} color="#fff" />
+            </div>
+            <div className="relative z-10 flex-1 text-left">
+              <p className="text-white font-bold text-sm" style={{ fontFamily: "Georgia, serif" }}>Сгенерировать AI-маршрут</p>
+              <p className="text-xs mt-1" style={{ color: "#a5f3fc" }}>Умный планировщик подберёт идеальный путь</p>
+            </div>
+            <ChevronRight size={18} color="rgba(255,255,255,0.6)" className="relative z-10" />
+          </button>
+        </div>
+
+        <div className="px-5 pb-3">
+          <div className="flex items-center justify-between mb-3">
+            <h2 className="text-sm font-bold text-gray-800" style={{ fontFamily: "Georgia, serif" }}>Популярные направления</h2>
+            <button className="text-xs font-medium" style={{ color: TEAL }} aria-label="Показать все направления">Все →</button>
+          </div>
+          {filteredLocations.length === 0 ? (
+            <div className="text-center py-8">
+              <Search size={32} color="#d1d5db" style={{ margin: "0 auto 8px" }} />
+              <p className="text-xs text-gray-400">Ничего не найдено</p>
+            </div>
+          ) : (
+            <div className="flex gap-3 overflow-x-auto pb-2" style={{ scrollbarWidth: "none" }}>
+              {filteredLocations.map((loc) => (
+                <button
+                  key={loc.id}
+                  onClick={() => onLocationTap(loc)}
+                  className="press-effect rounded-2xl overflow-hidden"
+                  style={{ flexShrink: 0, width: 155, boxShadow: "0 2px 12px rgba(0,0,0,0.08)" }}
+                  aria-label={`${loc.name} — ${loc.subtitle}, рейтинг ${loc.rating}`}
+                >
+                  <ScenePlaceholder type={loc.img} className="w-full" style={{ height: 96 }} />
+                  <div className="p-3 bg-white">
+                    <p className="font-bold text-sm text-gray-800 text-left" style={{ fontFamily: "Georgia, serif" }}>{loc.name}</p>
+                    <p className="text-left mt-1" style={{ fontSize: 10, color: "#9ca3af" }}>{loc.subtitle}</p>
+                    <div className="flex items-center gap-1 mt-2">
+                      <Star size={11} fill={GOLD} color={GOLD} />
+                      <span className="font-semibold text-gray-700" style={{ fontSize: 11 }}>{loc.rating}</span>
+                      <span style={{ fontSize: 10, color: "#9ca3af" }}>({loc.reviews})</span>
+                    </div>
+                  </div>
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+
+        <div className="px-5 pb-4">
+          <h2 className="text-sm font-bold text-gray-800 mb-3" style={{ fontFamily: "Georgia, serif" }}>Рядом с вами</h2>
+          {filteredNearby.length === 0 && (
+            <p className="text-xs text-gray-400 text-center py-4">Нет результатов</p>
+          )}
+          {filteredNearby.map((item) => (
+            <button
+              key={item.id}
+              onClick={() => onLocationTap(item)}
+              className="press-effect-soft w-full flex items-center gap-3 p-3 rounded-xl mb-2 transition-all"
+              style={{ background: "#f8fafc" }}
+              aria-label={`${item.name}, ${item.dist}`}
+            >
+              <div className="rounded-xl flex items-center justify-center" style={{ width: 48, height: 48, background: `${item.color}15` }}>
+                <MapPin size={20} color={item.color} />
+              </div>
+              <div className="flex-1 text-left">
+                <p className="font-semibold text-sm text-gray-800">{item.name}</p>
+                <p style={{ fontSize: 11, color: "#9ca3af" }}>{item.subtitle} · {item.dist}</p>
+              </div>
+              <div className="flex items-center gap-1">
+                <Star size={10} fill={GOLD} color={GOLD} />
+                <span className="text-xs font-medium text-gray-600">{item.rating}</span>
+              </div>
+            </button>
+          ))}
+        </div>
+        <div style={{ height: 16 }} />
+      </div>
+    </div>
+  );
+};
+
+/* =================== ITINERARY SCREEN =================== */
+const ItineraryScreen = ({ items, onItemsChange, offlineMode, onOfflineModeChange, onRemoveItem }) => {
+  const moveItem = (index, dir) => {
+    const newItems = [...items];
+    const target = index + dir;
+    if (target < 0 || target >= newItems.length) return;
+    [newItems[index], newItems[target]] = [newItems[target], newItems[index]];
+    onItemsChange(newItems);
+  };
+
+  const iconMap = { food: "🍽️", nature: "🏔️", stay: "🏕️", added: "📍" };
+
+  return (
+    <div className="flex flex-col h-full bg-white">
+      <div className="px-5 pt-5 pb-4" style={{ background: `linear-gradient(135deg, ${TEAL} 0%, ${TEAL_DARK} 100%)` }}>
+        <OrnamentPattern opacity={0.06} color="#fff" />
+        <div className="relative z-10">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-xs tracking-wider uppercase" style={{ color: "#80e0eb", letterSpacing: "0.12em" }}>Ваш маршрут</p>
+              <h1 className="text-white text-lg font-bold mt-1" style={{ fontFamily: "Georgia, serif" }}>Алматинская область</h1>
+            </div>
+            <div className="px-3 py-1 rounded-full text-xs font-medium" style={{ background: "rgba(255,255,255,0.18)", color: "#fff" }}>1 день</div>
+          </div>
+          <div className="flex items-center justify-between mt-4 px-3 py-2 rounded-xl" style={{ background: "rgba(255,255,255,0.12)" }}>
+            <div className="flex items-center gap-2">
+              {offlineMode ? <WifiOff size={15} color="rgba(255,255,255,0.8)" /> : <Wifi size={15} color="rgba(255,255,255,0.8)" />}
+              <span className="text-xs font-medium" style={{ color: "rgba(255,255,255,0.9)" }}>Доступно офлайн</span>
+            </div>
+            <button
+              onClick={() => onOfflineModeChange(!offlineMode)}
+              className="rounded-full transition-all duration-300 relative"
+              style={{ background: offlineMode ? GOLD : "rgba(255,255,255,0.25)", padding: 2, width: 40, height: 22 }}
+              role="switch"
+              aria-checked={offlineMode}
+              aria-label="Офлайн режим"
+            >
+              <div className="rounded-full bg-white shadow transition-transform duration-300" style={{ width: 18, height: 18, transform: offlineMode ? "translateX(18px)" : "translateX(0)" }} />
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div className="flex-1 overflow-y-auto px-5 pt-4 pb-4">
+        {items.length === 0 ? (
+          <div className="flex flex-col items-center justify-center py-12">
+            <Map size={48} color="#e5e7eb" style={{ marginBottom: 12 }} />
+            <p className="text-sm font-bold text-gray-500 mb-1">Маршрут пуст</p>
+            <p className="text-xs text-center text-gray-400">Добавляйте места с главного экрана</p>
+          </div>
+        ) : (
+          <div className="relative">
+            {items.map((item, i) => (
+              <div key={item.id} className="flex gap-3 mb-1" style={{ animation: `fadeSlideIn 0.3s ease ${i * 0.06}s both` }}>
+                <div className="flex flex-col items-center" style={{ width: 44 }}>
+                  <span className="font-bold" style={{ fontSize: 11, color: TEAL }}>{item.time}</span>
+                  <div className="rounded-full mt-2" style={{ width: 10, height: 10, border: `2px solid ${TEAL}`, background: i === 0 ? TEAL : "#fff" }} />
+                  {i < items.length - 1 && <div className="flex-1 mt-1" style={{ width: 2, background: `${TEAL}25` }} />}
+                </div>
+                <div className="flex-1 p-3 rounded-xl mb-2 flex items-center gap-3" style={{ background: "#f8fafc", border: "1px solid #f1f5f9" }}>
+                  <span className="text-xl">{iconMap[item.icon] || "📍"}</span>
+                  <div className="flex-1 min-w-0">
+                    <p className="font-semibold text-sm text-gray-800 truncate">{item.title}</p>
+                    <p className="mt-1" style={{ fontSize: 11, color: "#9ca3af" }}>{item.subtitle} · {item.duration}</p>
+                  </div>
+                  <div className="flex flex-col gap-1">
+                    <button
+                      onClick={() => moveItem(i, -1)}
+                      className="rounded flex items-center justify-center"
+                      style={{ width: 24, height: 24, background: i > 0 ? `${TEAL}10` : "transparent" }}
+                      aria-label="Переместить вверх"
+                      disabled={i === 0}
+                    >
+                      <ChevronUp size={14} color={i > 0 ? "#0d9488" : "#e5e7eb"} />
+                    </button>
+                    <button
+                      onClick={() => onRemoveItem(item.id)}
+                      className="rounded flex items-center justify-center"
+                      style={{ width: 24, height: 24, background: "#fef2f2" }}
+                      aria-label={`Удалить ${item.title}`}
+                    >
+                      <Trash2 size={12} color="#f87171" />
+                    </button>
+                    <button
+                      onClick={() => moveItem(i, 1)}
+                      className="rounded flex items-center justify-center"
+                      style={{ width: 24, height: 24, background: i < items.length - 1 ? `${TEAL}10` : "transparent" }}
+                      aria-label="Переместить вниз"
+                      disabled={i === items.length - 1}
+                    >
+                      <ChevronDown size={14} color={i < items.length - 1 ? "#0d9488" : "#e5e7eb"} />
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+
+        <div className="mt-4 p-4 rounded-2xl" style={{ background: WARM }}>
+          <div className="flex items-center gap-2 mb-2">
+            <ShanyrakIcon size={20} color={GOLD} />
+            <span className="text-xs font-bold text-gray-700">Итого по маршруту</span>
+          </div>
+          <div className="grid grid-cols-3 gap-3">
+            {[{ label: "Расстояние", value: "280 км" }, { label: "Время в пути", value: "~4.5ч" }, { label: "Бюджет", value: "~25 000 ₸" }].map((s, i) => (
+              <div key={i} className="text-center">
+                <p className="text-sm font-bold text-gray-800">{s.value}</p>
+                <p style={{ fontSize: 10, color: "#9ca3af" }} className="mt-1">{s.label}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div style={{ height: 16 }} />
+      </div>
+    </div>
+  );
+};
+
+/* =================== POI SCREEN =================== */
+const POIScreen = ({ location, onBack, isLiked, onToggleLike, isInRoute, onAddToRoute }) => {
+  const loc = location || allLocations[2];
+
+  return (
+    <div className="flex flex-col h-full bg-white">
+      <div className="relative">
+        <ScenePlaceholder type={loc.img || "turkestan"} className="w-full" style={{ height: 208 }} />
+        <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, rgba(0,0,0,0.3) 0%, transparent 40%, transparent 60%, rgba(0,0,0,0.5) 100%)" }} />
+        <button
+          onClick={onBack}
+          className="press-effect absolute top-4 left-4 rounded-full flex items-center justify-center"
+          style={{ width: 36, height: 36, background: "rgba(0,0,0,0.2)", backdropFilter: "blur(8px)" }}
+          aria-label="Назад"
+        >
+          <ArrowLeft size={18} color="#fff" />
+        </button>
+        <button
+          onClick={() => onToggleLike(loc.id)}
+          className="press-effect absolute top-4 right-4 rounded-full flex items-center justify-center"
+          style={{ width: 36, height: 36, background: "rgba(0,0,0,0.2)", backdropFilter: "blur(8px)" }}
+          aria-label={isLiked ? "Убрать из избранного" : "Добавить в избранное"}
+        >
+          <Heart size={18} color={isLiked ? "#f87171" : "#fff"} fill={isLiked ? "#f87171" : "none"} />
+        </button>
+        <div className="absolute bottom-4 left-4 right-4">
+          <div className="flex items-center gap-2 mb-1">
+            <BadgeCheck size={16} color={TEAL} />
+            <span className="font-medium uppercase" style={{ fontSize: 10, color: "#a5f3fc", letterSpacing: "0.1em" }}>Проверено Sapar</span>
+          </div>
+          <h1 className="text-white text-2xl font-bold" style={{ fontFamily: "Georgia, serif" }}>{loc.name}</h1>
+          <p className="text-xs mt-1" style={{ color: "rgba(255,255,255,0.7)" }}>{loc.subtitle}</p>
+        </div>
+      </div>
+
+      <div className="flex-1 overflow-y-auto">
+        <div className="px-5 pt-4 flex items-center gap-4">
+          <div className="flex items-center gap-1">
+            <Star size={14} fill={GOLD} color={GOLD} />
+            <span className="font-bold text-sm text-gray-800">{loc.rating}</span>
+            <span className="text-xs" style={{ color: "#9ca3af" }}>({loc.reviews} отзывов)</span>
+          </div>
+          <div className="flex items-center gap-1 px-2 py-1 rounded-full" style={{ background: "#dcfce7" }}>
+            <div className="rounded-full" style={{ width: 6, height: 6, background: "#22c55e" }} />
+            <span className="font-medium" style={{ fontSize: 10, color: "#15803d" }}>Открыто сейчас</span>
+          </div>
+        </div>
+        <div className="px-5 mt-3 flex items-center gap-2">
+          <Clock size={14} color="#9ca3af" />
+          <span className="text-xs" style={{ color: "#6b7280" }}>09:00 – 18:00 · Ежедневно</span>
+        </div>
+        <div className="px-5 mt-3 flex gap-2 flex-wrap">
+          {(loc.tags || ["История", "Культура"]).map((tag, i) => (
+            <span key={i} className="px-3 py-1 rounded-full font-medium" style={{ fontSize: 10, background: `${TEAL}10`, color: TEAL }}>{tag}</span>
+          ))}
+        </div>
+        <div className="px-5 mt-4">
+          <p className="text-sm leading-relaxed" style={{ color: "#4b5563" }}>
+            Одно из самых популярных мест Казахстана. Здесь вы найдёте уникальное сочетание природной красоты, богатой истории и гостеприимства местных жителей. Идеальное место для семейного отдыха и культурного обогащения.
+          </p>
+        </div>
+        <div className="px-5 mt-4">
+          <h3 className="text-xs font-bold text-gray-700 mb-2" style={{ fontFamily: "Georgia, serif" }}>Безопасность и доступность</h3>
+          <div className="grid grid-cols-2 gap-2">
+            {[
+              { icon: Baby, label: "Подходит для детей", ok: true },
+              { icon: Accessibility, label: "Для маломобильных", ok: true },
+              { icon: Shield, label: "Безопасно", ok: true },
+              { icon: Phone, label: "Связь доступна", ok: false },
+            ].map((item, i) => {
+              const Icon = item.icon;
+              return (
+                <div key={i} className="flex items-center gap-2 p-2 rounded-xl" style={{ background: item.ok ? "#f0fdf4" : "#fef2f2" }}>
+                  <Icon size={14} color={item.ok ? "#16a34a" : "#f87171"} />
+                  <span className="font-medium" style={{ fontSize: 11, color: item.ok ? "#166534" : "#991b1b" }}>{item.label}</span>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+        <div className="px-5 mt-5 pb-4">
+          <button
+            onClick={() => !isInRoute && onAddToRoute(loc)}
+            className="press-effect w-full py-3 rounded-2xl text-white font-bold text-sm flex items-center justify-center gap-2 transition-all"
+            style={{ background: isInRoute ? "#16a34a" : `linear-gradient(135deg, ${TEAL} 0%, ${TEAL_DARK} 100%)`, boxShadow: `0 4px 16px ${isInRoute ? "#16a34a" : TEAL}30` }}
+            aria-label={isInRoute ? "Уже в маршруте" : "Добавить в маршрут"}
+          >
+            {isInRoute ? <><Check size={18} /> Добавлено в маршрут</> : <><Plus size={18} /> Добавить в маршрут</>}
+          </button>
+        </div>
+        <div style={{ height: 8 }} />
+      </div>
+    </div>
+  );
+};
+
+/* =================== FAVORITES SCREEN =================== */
+const FavoritesScreen = ({ likedIds, onLocationTap, onToggleLike }) => {
+  const allPlaces = [...allLocations, ...nearbyPlaces];
+  const likedPlaces = allPlaces.filter(p => likedIds.has(p.id));
+
+  return (
+    <div className="flex flex-col h-full bg-white">
+      <div className="px-5 pt-5 pb-4" style={{ background: `linear-gradient(135deg, ${TEAL} 0%, ${TEAL_DARK} 100%)` }}>
+        <OrnamentPattern opacity={0.06} color="#fff" />
+        <div className="relative z-10">
+          <p className="text-xs tracking-wider uppercase" style={{ color: "#80e0eb", letterSpacing: "0.12em" }}>Коллекция</p>
+          <h1 className="text-white text-lg font-bold mt-1" style={{ fontFamily: "Georgia, serif" }}>Избранные места</h1>
+        </div>
+      </div>
+      <div className="flex-1 overflow-y-auto">
+        {likedPlaces.length === 0 ? (
+          <div className="flex flex-col items-center justify-center px-8 pt-16">
+            <Heart size={48} color="#e5e7eb" style={{ marginBottom: 16 }} />
+            <p className="text-sm font-bold text-gray-700 mb-1" style={{ fontFamily: "Georgia, serif" }}>Пока пусто</p>
+            <p className="text-xs text-center" style={{ color: "#9ca3af" }}>Нажмите ♡ на любой достопримечательности, чтобы сохранить её здесь</p>
+          </div>
+        ) : (
+          <div className="px-5 pt-4 pb-4">
+            {likedPlaces.map((loc) => (
+              <button
+                key={loc.id}
+                onClick={() => onLocationTap(loc)}
+                className="press-effect-soft w-full flex items-center gap-3 p-3 rounded-xl mb-2"
+                style={{ background: "#f8fafc", border: "1px solid #f1f5f9" }}
+                aria-label={`Открыть ${loc.name}`}
+              >
+                <ScenePlaceholder type={loc.img} className="rounded-xl" style={{ width: 56, height: 56, flexShrink: 0 }} />
+                <div className="flex-1 text-left min-w-0">
+                  <p className="font-bold text-sm text-gray-800 truncate">{loc.name}</p>
+                  <p style={{ fontSize: 11, color: "#9ca3af" }} className="mt-1">{loc.subtitle}</p>
+                  <div className="flex items-center gap-1 mt-1">
+                    <Star size={10} fill={GOLD} color={GOLD} />
+                    <span style={{ fontSize: 11 }} className="font-semibold text-gray-600">{loc.rating}</span>
+                  </div>
+                </div>
+                <button
+                  onClick={(e) => { e.stopPropagation(); onToggleLike(loc.id); }}
+                  className="rounded-full flex items-center justify-center"
+                  style={{ width: 32, height: 32, background: "#fef2f2", flexShrink: 0 }}
+                  aria-label={`Убрать ${loc.name} из избранного`}
+                >
+                  <Heart size={16} fill="#f87171" color="#f87171" />
+                </button>
+              </button>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
+/* =================== PROFILE SCREEN =================== */
+const ProfileScreen = ({ settings, onSettingsChange }) => {
+  const { lang, geoEnabled, analyticsEnabled, darkMode, notifications } = settings;
+
+  const update = (key, val) => onSettingsChange({ ...settings, [key]: val });
+
+  const Toggle = ({ value, onChange, label }) => (
+    <button
+      onClick={() => onChange(!value)}
+      className="rounded-full transition-all duration-300 relative"
+      style={{ background: value ? TEAL : "#d1d5db", padding: 2, width: 40, height: 22 }}
+      role="switch"
+      aria-checked={value}
+      aria-label={label}
+    >
+      <div className="rounded-full bg-white shadow transition-transform duration-300" style={{ width: 18, height: 18, transform: value ? "translateX(18px)" : "translateX(0)" }} />
+    </button>
+  );
+
+  return (
+    <div className={`flex flex-col h-full bg-white ${darkMode ? "dark-mode" : ""}`}>
+      <div className="relative px-5 pt-5 pb-6" style={{ background: `linear-gradient(135deg, ${TEAL} 0%, ${TEAL_DARK} 100%)` }}>
+        <OrnamentPattern opacity={0.06} color="#fff" />
+        <div className="relative z-10 flex items-center gap-4">
+          <div className="rounded-full flex items-center justify-center" style={{ width: 64, height: 64, background: "rgba(255,255,255,0.15)" }}>
+            <ShanyrakIcon size={36} color="rgba(255,255,255,0.9)" />
+          </div>
+          <div>
+            <h1 className="text-white text-lg font-bold" style={{ fontFamily: "Georgia, serif" }}>Айдар Касымов</h1>
+            <p className="text-xs mt-1" style={{ color: "#80e0eb" }}>Путешественник с 2024</p>
+            <div className="flex items-center gap-1 mt-2 px-2 py-1 rounded-full" style={{ background: `${GOLD}30` }}>
+              <Star size={10} fill={GOLD} color={GOLD} />
+              <span className="font-semibold" style={{ fontSize: 10, color: GOLD }}>Premium</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className={`flex-1 overflow-y-auto px-5 ${darkMode ? "dm-bg" : ""}`} style={{ marginTop: -12 }}>
+        <div className={`rounded-2xl p-4 mb-3 ${darkMode ? "dm-card" : "bg-white"}`} style={{ boxShadow: "0 2px 16px rgba(0,0,0,0.06)" }}>
+          <div className="flex items-center gap-2 mb-3">
+            <Languages size={16} color={TEAL} />
+            <span className={`text-xs font-bold ${darkMode ? "dm-text" : "text-gray-700"}`}>Язык интерфейса</span>
+          </div>
+          <div className="flex gap-2">
+            {["ҚАЗ", "РУС", "ENG"].map((l) => (
+              <button key={l} onClick={() => update("lang", l)} className="flex-1 py-2 rounded-xl text-xs font-bold transition-all" style={{ background: lang === l ? TEAL : (darkMode ? "#475569" : "#f1f5f9"), color: lang === l ? "#fff" : (darkMode ? "#e2e8f0" : "#64748b"), boxShadow: lang === l ? `0 2px 8px ${TEAL}30` : "none" }}>
+                {l}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className={`rounded-2xl p-4 mb-3 ${darkMode ? "dm-card" : "bg-white"}`} style={{ boxShadow: "0 2px 16px rgba(0,0,0,0.06)" }}>
+          <div className="flex items-center gap-2 mb-3">
+            <Lock size={16} color={TEAL} />
+            <span className={`text-xs font-bold ${darkMode ? "dm-text" : "text-gray-700"}`}>Приватность и данные</span>
+          </div>
+          {[
+            { label: "Геолокация", desc: "Для поиска мест рядом", key: "geoEnabled" },
+            { label: "Аналитика", desc: "Помогает улучшать приложение", key: "analyticsEnabled" },
+          ].map((item, i) => (
+            <div key={i} className="flex items-center justify-between py-2" style={{ borderBottom: i < 1 ? `1px solid ${darkMode ? "#475569" : "#f1f5f9"}` : "none" }}>
+              <div>
+                <p className={`text-sm font-medium ${darkMode ? "dm-text" : "text-gray-700"}`}>{item.label}</p>
+                <p style={{ fontSize: 10 }} className={`mt-1 ${darkMode ? "dm-subtext" : ""}`} {...(!darkMode && { style: { fontSize: 10, color: "#9ca3af" } })}>{item.desc}</p>
+              </div>
+              <Toggle value={settings[item.key]} onChange={(v) => update(item.key, v)} label={item.label} />
+            </div>
+          ))}
+        </div>
+
+        <div className={`rounded-2xl p-4 mb-3 ${darkMode ? "dm-card" : "bg-white"}`} style={{ boxShadow: "0 2px 16px rgba(0,0,0,0.06)" }}>
+          <div className="flex items-center gap-2 mb-3">
+            <Bell size={16} color={TEAL} />
+            <span className={`text-xs font-bold ${darkMode ? "dm-text" : "text-gray-700"}`}>Настройки</span>
+          </div>
+          {[
+            { label: "Уведомления", desc: "Push-уведомления о маршрутах", key: "notifications" },
+            { label: "Тёмная тема", desc: "Сберегите заряд батареи", key: "darkMode" },
+          ].map((item, i) => (
+            <div key={i} className="flex items-center justify-between py-2" style={{ borderBottom: i < 1 ? `1px solid ${darkMode ? "#475569" : "#f1f5f9"}` : "none" }}>
+              <div>
+                <p className={`text-sm font-medium ${darkMode ? "dm-text" : "text-gray-700"}`}>{item.label}</p>
+                <p style={{ fontSize: 10 }} className={`mt-1 ${darkMode ? "dm-subtext" : ""}`} {...(!darkMode && { style: { fontSize: 10, color: "#9ca3af" } })}>{item.desc}</p>
+              </div>
+              <Toggle value={settings[item.key]} onChange={(v) => update(item.key, v)} label={item.label} />
+            </div>
+          ))}
+        </div>
+
+        <div className="relative overflow-hidden rounded-2xl p-4 mb-4" style={{ background: `linear-gradient(135deg, ${GOLD}15, ${SAND})` }}>
+          <div className="flex items-center gap-2 mb-2">
+            <CreditCard size={16} color={GOLD} />
+            <span className="text-xs font-bold text-gray-700">Подписка Premium</span>
+          </div>
+          <p style={{ fontSize: 11, color: "#6b7280" }} className="mb-3">AI-рекомендации, эксклюзивные маршруты, без рекламы</p>
+          <div className="flex items-end gap-1 mb-3">
+            <span className="text-2xl font-bold text-gray-800">1 990 ₸</span>
+            <span className="text-xs mb-1" style={{ color: "#9ca3af" }}>/ месяц</span>
+          </div>
+          <div className="mb-3" style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+            {["AI-маршруты без ограничений", "Офлайн-карты всех регионов", "Эксклюзивные скрытые места"].map((f, i) => (
+              <div key={i} className="flex items-center gap-2">
+                <Check size={12} color={GOLD} />
+                <span style={{ fontSize: 11, color: "#4b5563" }}>{f}</span>
+              </div>
+            ))}
+          </div>
+          <button className="w-full py-2 rounded-xl text-white text-xs font-bold" style={{ background: `linear-gradient(135deg, ${GOLD}, #b8860b)`, boxShadow: `0 3px 12px ${GOLD}40` }}>
+            Активировано ✓
+          </button>
+        </div>
+        <div style={{ height: 16 }} />
+      </div>
+    </div>
+  );
+};
+
+/* =================== MAIN APP =================== */
+function SaparApp() {
+  const [activeTab, setActiveTab] = useState(0);
+  const [selectedLocation, setSelectedLocation] = useState(null);
+  const [showPOI, setShowPOI] = useState(false);
+
+  const [likedIds, setLikedIds] = useState(new Set());
+  const [itineraryItems, setItineraryItems] = useState(defaultItinerary);
+  const [offlineMode, setOfflineMode] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [activeFilter, setActiveFilter] = useState(null);
+  const [profileSettings, setProfileSettings] = useState({
+    lang: "РУС",
+    geoEnabled: true,
+    analyticsEnabled: false,
+    darkMode: false,
+    notifications: true,
+  });
+
+  const routeLocationIds = new Set(itineraryItems.filter(it => it.locId).map(it => it.locId));
+
+  const toggleLike = (id) => {
+    setLikedIds(prev => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id); else next.add(id);
+      return next;
+    });
+  };
+
+  const addToRoute = (loc) => {
+    if (routeLocationIds.has(loc.id)) return;
+    const lastItem = itineraryItems[itineraryItems.length - 1];
+    const lastHour = lastItem ? parseInt(lastItem.time.split(":")[0]) + 1 : 9;
+    const newTime = `${String(lastHour).padStart(2, "0")}:00`;
+    const newItem = {
+      id: Date.now(),
+      locId: loc.id,
+      time: newTime,
+      title: loc.name,
+      subtitle: loc.subtitle,
+      duration: "2ч",
+      icon: "added",
+    };
+    setItineraryItems(prev => [...prev, newItem]);
+  };
+
+  const removeFromRoute = (itemId) => {
+    setItineraryItems(prev => prev.filter(it => it.id !== itemId));
+  };
+
+  const handleLocationTap = (loc) => { setSelectedLocation(loc); setShowPOI(true); };
+
+  const tabs = [
+    { icon: Compass, label: "Главная" },
+    { icon: Map, label: "Маршрут" },
+    { icon: Heart, label: "Избранное" },
+    { icon: User, label: "Профиль" },
+  ];
+
+  const renderScreen = () => {
+    if (showPOI && selectedLocation) {
+      return (
+        <POIScreen
+          location={selectedLocation}
+          onBack={() => setShowPOI(false)}
+          isLiked={likedIds.has(selectedLocation.id)}
+          onToggleLike={toggleLike}
+          isInRoute={routeLocationIds.has(selectedLocation.id)}
+          onAddToRoute={addToRoute}
+        />
+      );
+    }
+    switch (activeTab) {
+      case 0: return (
+        <DiscoveryScreen
+          onLocationTap={handleLocationTap}
+          onAIRoute={() => setActiveTab(1)}
+          likedIds={likedIds}
+          searchQuery={searchQuery}
+          onSearchChange={setSearchQuery}
+          activeFilter={activeFilter}
+          onFilterChange={setActiveFilter}
+        />
+      );
+      case 1: return (
+        <ItineraryScreen
+          items={itineraryItems}
+          onItemsChange={setItineraryItems}
+          offlineMode={offlineMode}
+          onOfflineModeChange={setOfflineMode}
+          onRemoveItem={removeFromRoute}
+        />
+      );
+      case 2: return (
+        <FavoritesScreen
+          likedIds={likedIds}
+          onLocationTap={handleLocationTap}
+          onToggleLike={toggleLike}
+        />
+      );
+      case 3: return <ProfileScreen settings={profileSettings} onSettingsChange={setProfileSettings} />;
+      default: return null;
+    }
+  };
+
+  return (
+    <div className="flex items-center justify-center min-h-screen" style={{ background: "linear-gradient(135deg, #e2e8f0 0%, #f1f5f9 100%)" }}>
+      <div className="relative overflow-hidden flex flex-col" style={{ width: 375, height: 812, borderRadius: 40, boxShadow: "0 20px 60px rgba(0,0,0,0.15), 0 0 0 1px rgba(0,0,0,0.05)", background: "#fff" }}>
+        <div className="flex items-center justify-between px-7 pt-3 pb-1 absolute top-0 left-0 right-0 z-50">
+          <span className="font-semibold" style={{ fontSize: 11, color: showPOI ? "#fff" : (activeTab === 2 ? "#1a1a1a" : "#fff") }}>9:41</span>
+          <div className="flex items-center gap-1">
+            <div className="flex gap-1">
+              {[1,2,3,4].map(i => (
+                <div key={i} className="rounded-full" style={{ width: 2, height: 4 + i * 2, background: showPOI ? "rgba(255,255,255,0.7)" : (activeTab === 2 && !showPOI ? "#666" : "rgba(255,255,255,0.7)") }} />
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div className="flex-1 overflow-hidden" style={{ paddingTop: 28 }}>
+          {renderScreen()}
+        </div>
+
+        {!showPOI && (
+          <nav className="flex items-center justify-around px-4" style={{ paddingBottom: 28, paddingTop: 8, background: "#fff", borderTop: "1px solid #f1f5f9" }} aria-label="Основная навигация">
+            {tabs.map((tab, i) => {
+              const Icon = tab.icon;
+              const active = activeTab === i;
+              const badge = i === 2 && likedIds.size > 0;
+              return (
+                <button key={i} onClick={() => setActiveTab(i)} className="flex flex-col items-center gap-1 py-1 px-3 relative" aria-label={tab.label} aria-current={active ? "page" : undefined}>
+                  <div className="rounded-xl flex items-center justify-center transition-all relative" style={{ width: 32, height: 32, background: active ? `${TEAL}12` : "transparent", transform: active ? "scale(1.1)" : "scale(1)" }}>
+                    <Icon size={20} color={active ? TEAL : "#94a3b8"} fill={active && i === 2 ? TEAL : "none"} strokeWidth={active ? 2.5 : 1.8} />
+                    {badge && (
+                      <div className="absolute -top-0.5 -right-0.5 rounded-full flex items-center justify-center" style={{ width: 14, height: 14, background: "#f87171", fontSize: 8, color: "#fff", fontWeight: 700 }}>
+                        {likedIds.size}
+                      </div>
+                    )}
+                  </div>
+                  <span className="font-medium" style={{ fontSize: 10, color: active ? TEAL : "#94a3b8" }}>{tab.label}</span>
+                </button>
+              );
+            })}
+          </nav>
+        )}
+
+        <div className="absolute rounded-full" style={{ bottom: 8, left: "50%", transform: "translateX(-50%)", width: 128, height: 4, background: "rgba(0,0,0,0.15)" }} />
+      </div>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<SaparApp />);
+</script>
+</body>
+</html>
